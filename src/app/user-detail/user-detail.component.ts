@@ -22,13 +22,22 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   user$: Observable<IUser> = null;
   similarUsers$: Observable<IUser[]> = null;
   isComponentAlive: boolean;
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<AppState>) {
 
-
-  constructor() {
   }
 
   ngOnInit() {
     this.isComponentAlive = true;
+    this.route.paramMap.pipe(
+      takeWhile(() => !!this.isComponentAlive)
+    )
+      .subscribe(params => {
+        const uuid = params.get('uuid');
+        this.user$ = this.store.select(selectCurrentUser(uuid))
+        this.similarUsers$ = this.store.select(selectSimilarUsers(uuid))
+      });
   }
 
   ngOnDestroy() {
