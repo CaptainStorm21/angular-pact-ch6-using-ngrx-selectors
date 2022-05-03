@@ -6,8 +6,24 @@ app: {
 
 
 
-That's why we first used createFeatureSelector to fetch the app state, and then we used createSelector to get the users state.
+That's why we first used createFeatureSelector to fetch the app state,
+and then we used createSelector to get the users state.
 
-The hard part was getting the current users and similar users. For that, we created selectors that could take the uuid as input. Then, we listened to the paramMap in the UserDetailComponent class for the uuid, and as soon as it changed, we fetched it. We then used it with the selectors by passing the uuid into them so that the selectors could filter the current user and similar users.
+The hard part was getting the current users and similar users.
+For that, we created selectors that could take the uuid as input.
 
-Finally, we had the issue that if someone lands directly on the User Detail page with the uuid, they won't see anything because we wouldn't have fetched the users. This is due to the fact that we only fetch the users on the home page, so anyone landing directly on a user's detail page wouldn't cause the effect to be triggered. That's why we created a method named getUsersIfNecessary so that it can check the state and fetch the users if they're not already fetched.
+Then, we listened to the paramMap in the UserDetailComponent class
+for the uuid, and as soon as it changed, we fetched it.
+
+We then used it with the selectors by passing the uuid into
+them so that the selectors could filter the current user and similar users.
+
+Finally, we had the issue that if someone lands directly on
+the User Detail page with the uuid, they won't see anything
+because we wouldn't have fetched the users.
+This is due to the fact that we only fetch the users on the home page,
+
+so anyone landing directly on a user's detail page wouldn't cause
+the effect to be triggered. That's why we created a method named
+getUsersIfNecessary so that it can check the state and fetch the users
+if they're not already fetched.
